@@ -27,7 +27,7 @@ Tiko is a full-stack customer support ticketing system built with React, Node.js
 
 ### 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/yourusername/tiko.git
+   git clone https://github.com/avishi-sreenidhi/tiko.git
    cd tiko
    ```
 
