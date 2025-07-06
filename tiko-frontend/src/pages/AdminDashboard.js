@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Table, Form, Alert, Spinner, Badge, Row, Col, Card } from 'react-bootstrap';
+import { Container, Table, Form, Alert, Spinner, Badge, Row, Col, Card, Button } from 'react-bootstrap';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 function AdminDashboard({ token }) {
   const [tickets, setTickets] = useState([]);
-  const [statusFilter, setStatusFilter] = useState('active'); // New state for filter
+  const [statusFilter, setStatusFilter] = useState('active');
   const [stats, setStats] = useState({
     totalTickets: 0,
     openTickets: 0,
@@ -40,7 +40,6 @@ function AdminDashboard({ token }) {
             totalUsers: usersRes.data.count || 0,
           });
         } catch (userErr) {
-          // If user count fails, still show ticket stats
           setStats({
             totalTickets: ticketsData.length,
             openTickets: ticketsData.filter(t => t.status === 'open').length,
@@ -90,6 +89,35 @@ function AdminDashboard({ token }) {
       }));
     } catch (err) {
       setMessage(err.response?.data?.message || 'Failed to update status');
+    }
+  };
+
+  // AI Reply Generation
+  const generateAIReply = async (ticket) => {
+    try {
+      setMessage('Generating AI reply...');
+      const res = await axios.post(
+        `${API_URL}/api/ai/generate-reply`,
+        {
+          ticketId: ticket._id,  // Added ticketId
+          ticketTitle: ticket.title,
+          ticketDescription: ticket.description
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      // Show the AI reply in an alert or modal
+      alert(`AI Suggested Reply:\n\n${res.data.reply}`);
+      setMessage('AI reply generated and saved to ticket!');
+      
+      // Update the ticket in state to reflect the new AI reply
+      setTickets(tickets =>
+        tickets.map(t =>
+          t._id === ticket._id ? { ...t, aiReply: res.data.reply } : t
+        )
+      );
+    } catch (err) {
+      setMessage('Failed to generate AI reply');
     }
   };
 
@@ -190,6 +218,7 @@ function AdminDashboard({ token }) {
                     <th>Status</th>
                     <th>Created By</th>
                     <th>Update Status</th>
+                    <th>AI Reply</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -216,6 +245,15 @@ function AdminDashboard({ token }) {
                           <option value="in progress">In Progress</option>
                           <option value="closed">Closed</option>
                         </Form.Select>
+                      </td>
+                      <td>
+                        <Button 
+                          variant={ticket.aiReply ? "success" : "outline-primary"}
+                          size="sm"
+                          onClick={() => generateAIReply(ticket)}
+                        >
+                          🤖 {ticket.aiReply ? "Regenerate" : "AI Reply"}
+                        </Button>
                       </td>
                     </tr>
                   ))}

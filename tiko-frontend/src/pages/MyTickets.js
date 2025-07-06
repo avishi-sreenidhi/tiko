@@ -46,6 +46,7 @@ function MyTickets({ token }) {
                   <th>Title</th>
                   <th>Description</th>
                   <th>Status</th>
+                  <th>Reply</th>
                 </tr>
               </thead>
               <tbody>
@@ -55,6 +56,13 @@ function MyTickets({ token }) {
                     <td>{ticket.description}</td>
                     <td>
                       <Badge bg={statusVariant(ticket.status)}>{ticket.status}</Badge>
+                    </td>
+                    <td>
+                      {ticket.aiReply ? (
+                        <span style={{ whiteSpace: 'pre-line' }}>{ticket.aiReply}</span>
+                      ) : (
+                        <span className="text-muted">No reply yet</span>
+                      )}
                     </td>
                   </tr>
                 ))}
