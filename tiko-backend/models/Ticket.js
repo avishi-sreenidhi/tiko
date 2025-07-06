@@ -5,6 +5,7 @@ const ticketSchema = new mongoose.Schema({
     description: { type: String, required: true },
     status: { type: String, enum: ['open', 'in progress', 'closed'], default: 'open' },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    aiReply: { type: String }, // AI-generated reply field
     createdAt: { type: Date, default: Date.now }
 });
 
