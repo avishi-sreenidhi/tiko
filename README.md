@@ -54,6 +54,7 @@ npm install
 MONGODB_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 PORT=3001
+OPENAI_API_KEY = your_open_api_key
 ```
 
 **Create `frontend/.env`:**
