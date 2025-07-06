@@ -19,6 +19,7 @@ Tiko is a full-stack customer support ticketing system built with React, Node.js
 - **Role-based Authentication:** Secure login and registration for both admins and customers.
 - **Ticket Management:** Customers can create, view, and track support tickets; admins can view, filter, and update ticket statuses.
 - **Modern UI:** Responsive, user-friendly interface with a bento-style admin dashboard and Bootstrap styling.
+- **AI Replies:** : Automated Replies to the customer for faster responses and increased customer satisfaction.
 
 ---
 
