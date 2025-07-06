@@ -24,16 +24,11 @@ Tiko is a full-stack customer support ticketing system built with React, Node.js
 
 ## 📝 How to Run Locally
 
-1. **Clone the repo:**
+### 1. **Clone the repo:**
    ```bash
    git clone https://github.com/yourusername/tiko.git
    cd tiko
-
- 1. **Clone the repo**
-```bash
-git clone https://github.com/yourusername/tiko.git
-cd tiko
-````
+   ```
 
 ### 2. **Install dependencies**
 
