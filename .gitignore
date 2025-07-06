@@ -1,0 +1,8 @@
+tiko-backend/.env
+tiko-frontend/.env 
+tiko-backend/node_modules
+tiko-frontend/node_modules
+tiko-frontend/build
+.DS_Store
+.vscode/
+.idea/
